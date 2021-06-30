@@ -1,16 +1,16 @@
 using System.Net.Http;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Npgsql;
 using NUnit.Framework;
 
-namespace BaseApi.Tests
+namespace ArrearsApi.Tests
 {
     public class IntegrationTests<TStartup> where TStartup : class
     {
         protected HttpClient Client { get; private set; }
-        protected DatabaseContext DatabaseContext { get; private set; }
+        protected ArrearsContext DatabaseContext { get; private set; }
 
         private MockWebApplicationFactory<TStartup> _factory;
         private NpgsqlConnection _connection;
@@ -36,7 +36,7 @@ namespace BaseApi.Tests
         {
             _factory = new MockWebApplicationFactory<TStartup>(_connection);
             Client = _factory.CreateClient();
-            DatabaseContext = new DatabaseContext(_builder.Options);
+            DatabaseContext = new ArrearsContext(_builder.Options);
             DatabaseContext.Database.EnsureCreated();
             _transaction = DatabaseContext.Database.BeginTransaction();
         }

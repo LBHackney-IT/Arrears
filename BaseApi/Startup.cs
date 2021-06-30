@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using BaseApi.V1.Controllers;
+using ArrearsApi.V1.Controllers;
 using Amazon.XRay.Recorder.Handlers.AwsSdk;
-using BaseApi.V1.Gateways;
-using BaseApi.V1.Infrastructure;
-using BaseApi.V1.UseCase;
-using BaseApi.V1.UseCase.Interfaces;
-using BaseApi.Versioning;
+using ArrearsApi.V1.Gateways;
+using ArrearsApi.V1.Infrastructure;
+using ArrearsApi.V1.UseCase;
+using ArrearsApi.V1.UseCase.Interfaces;
+using ArrearsApi.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace BaseApi
+namespace ArrearsApi
 {
     public class Startup
     {
@@ -113,9 +113,9 @@ namespace BaseApi
 
             ConfigureLogging(services, Configuration);
 
-            ConfigureDbContext(services);
+            //ConfigureDbContext(services);
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            // services.ConfigureDynamoDB();
+            services.ConfigureDynamoDB();
 
             RegisterGateways(services);
             RegisterUseCases(services);
@@ -125,7 +125,7 @@ namespace BaseApi
         {
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
-            services.AddDbContext<DatabaseContext>(
+            services.AddDbContext<ArrearsContext>(
                 opt => opt.UseNpgsql(connectionString).AddXRayInterceptor(true));
         }
 
@@ -151,16 +151,17 @@ namespace BaseApi
 
         private static void RegisterGateways(IServiceCollection services)
         {
-            services.AddScoped<IExampleGateway, ExampleGateway>();
+            //services.AddScoped<IArrearsApiGateway, ArrearsApiGateway>();
 
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
-            //services.AddScoped<IExampleGateway, DynamoDbGateway>();
+            services.AddScoped<IArrearsApiGateway, DynamoDbGateway>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)
         {
             services.AddScoped<IGetAllUseCase, GetAllUseCase>();
             services.AddScoped<IGetByIdUseCase, GetByIdUseCase>();
+            services.AddScoped<IAddUseCase, AddUseCase>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,7 @@
-using BaseApi.V1.Boundary;
+using ArrearsApi.V1.Boundary;
 using Microsoft.Extensions.HealthChecks;
 
-namespace BaseApi.V1.UseCase
+namespace ArrearsApi.V1.UseCase
 {
     public class DbHealthCheckUseCase
     {

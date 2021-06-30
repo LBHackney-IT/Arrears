@@ -1,19 +1,19 @@
-using BaseApi.V1.Gateways;
-using BaseApi.V1.UseCase;
+using ArrearsApi.V1.Gateways;
+using ArrearsApi.V1.UseCase;
 using Moq;
 using NUnit.Framework;
 
-namespace BaseApi.Tests.V1.UseCase
+namespace ArrearsApi.Tests.V1.UseCase
 {
     public class GetByIdUseCaseTests
     {
-        private Mock<IExampleGateway> _mockGateway;
+        private Mock<IArrearsApiGateway> _mockGateway;
         private GetByIdUseCase _classUnderTest;
 
         [SetUp]
         public void SetUp()
         {
-            _mockGateway = new Mock<IExampleGateway>();
+            _mockGateway = new Mock<IArrearsApiGateway>();
             _classUnderTest = new GetByIdUseCase(_mockGateway.Object);
         }
 

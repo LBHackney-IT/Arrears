@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace BaseApi.Tests
+namespace ArrearsApi.Tests
 {
     public class DynamoDbIntegrationTests<TStartup> where TStartup : class
     {

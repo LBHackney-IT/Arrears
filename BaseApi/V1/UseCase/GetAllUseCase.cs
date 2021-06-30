@@ -1,22 +1,30 @@
-using BaseApi.V1.Boundary.Response;
-using BaseApi.V1.Factories;
-using BaseApi.V1.Gateways;
-using BaseApi.V1.UseCase.Interfaces;
+using ArrearsApi.V1.Boundary.Response;
+using ArrearsApi.V1.Factories;
+using ArrearsApi.V1.Gateways;
+using ArrearsApi.V1.UseCase.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace BaseApi.V1.UseCase
+namespace ArrearsApi.V1.UseCase
 {
     //TODO: Rename class name and interface name to reflect the entity they are representing eg. GetAllClaimantsUseCase
     public class GetAllUseCase : IGetAllUseCase
     {
-        private readonly IExampleGateway _gateway;
-        public GetAllUseCase(IExampleGateway gateway)
+        private readonly IArrearsApiGateway _gateway;
+        public GetAllUseCase(IArrearsApiGateway gateway)
         {
             _gateway = gateway;
         }
 
-        public ResponseObjectList Execute()
+        public async Task<ArrearsResponseObjectList> ExecuteAsync(string targettype, int count)
         {
-            return new ResponseObjectList { ResponseObjects = _gateway.GetAll().ToResponse() };
+            var arrearsResponseObjectList = new ArrearsResponseObjectList();
+            var data = await _gateway.GetAllAsync(targettype, count).ConfigureAwait(false);
+
+            arrearsResponseObjectList.ArrearsResponseObjects = data?.Select(p => p.ToResponse()).ToList();
+
+            return arrearsResponseObjectList;
+           
         }
     }
 }

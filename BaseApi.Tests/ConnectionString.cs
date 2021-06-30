@@ -1,6 +1,6 @@
 using System;
 
-namespace BaseApi.Tests
+namespace ArrearsApi.Tests
 {
     public static class ConnectionString
     {

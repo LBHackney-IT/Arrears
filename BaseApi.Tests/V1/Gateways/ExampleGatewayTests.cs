@@ -1,11 +1,12 @@
 using AutoFixture;
-using BaseApi.Tests.V1.Helper;
-using BaseApi.V1.Domain;
-using BaseApi.V1.Gateways;
+using ArrearsApi.Tests.V1.Helper;
+using ArrearsApi.V1.Domain;
+using ArrearsApi.V1.Gateways;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
 
-namespace BaseApi.Tests.V1.Gateways
+namespace ArrearsApi.Tests.V1.Gateways
 {
     //TODO: Remove this file if Postgres gateway is not being used
     //TODO: Rename Tests to match gateway name
@@ -14,18 +15,18 @@ namespace BaseApi.Tests.V1.Gateways
     public class ExampleGatewayTests : DatabaseTests
     {
         private readonly Fixture _fixture = new Fixture();
-        private ExampleGateway _classUnderTest;
+        private ArrearsApiGateway _classUnderTest;
 
         [SetUp]
         public void Setup()
         {
-            _classUnderTest = new ExampleGateway(DatabaseContext);
+            _classUnderTest = new ArrearsApiGateway(DatabaseContext);
         }
 
         [Test]
         public void GetEntityByIdReturnsNullIfEntityDoesntExist()
         {
-            var response = _classUnderTest.GetEntityById(123);
+            var response = _classUnderTest.GetEntityByIdAsync(Guid.NewGuid());
 
             response.Should().BeNull();
         }
@@ -33,16 +34,16 @@ namespace BaseApi.Tests.V1.Gateways
         [Test]
         public void GetEntityByIdReturnsTheEntityIfItExists()
         {
-            var entity = _fixture.Create<Entity>();
+            var entity = _fixture.Create<Arrears>();
             var databaseEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
 
-            DatabaseContext.DatabaseEntities.Add(databaseEntity);
+            DatabaseContext.Arrears.Add(databaseEntity);
             DatabaseContext.SaveChanges();
 
-            var response = _classUnderTest.GetEntityById(databaseEntity.Id);
+            var response = _classUnderTest.GetEntityByIdAsync(databaseEntity.Id);
 
-            databaseEntity.Id.Should().Be(response.Id);
-            databaseEntity.CreatedAt.Should().BeSameDateAs(response.CreatedAt);
+            databaseEntity.Id.Should().Be(response.Result.Id);
+            databaseEntity.CreatedAt.Should().BeSameDateAs(response.Result.CreatedAt);
         }
 
         //TODO: Add tests here for the get all method.

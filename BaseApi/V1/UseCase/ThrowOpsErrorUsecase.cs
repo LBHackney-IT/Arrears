@@ -1,5 +1,5 @@
 
-namespace BaseApi.V1.UseCase
+namespace ArrearsApi.V1.UseCase
 {
     public static class ThrowOpsErrorUsecase
     {

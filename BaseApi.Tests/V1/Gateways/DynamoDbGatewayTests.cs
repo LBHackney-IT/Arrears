@@ -1,14 +1,15 @@
 using Amazon.DynamoDBv2.DataModel;
 using AutoFixture;
-using BaseApi.Tests.V1.Helper;
-using BaseApi.V1.Domain;
-using BaseApi.V1.Gateways;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.Tests.V1.Helper;
+using ArrearsApi.V1.Domain;
+using ArrearsApi.V1.Gateways;
+using ArrearsApi.V1.Infrastructure;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using System;
 
-namespace BaseApi.Tests.V1.Gateways
+namespace ArrearsApi.Tests.V1.Gateways
 {
     //TODO: Remove this file if DynamoDb gateway not being used
     //TODO: Rename Tests to match gateway name
@@ -30,7 +31,7 @@ namespace BaseApi.Tests.V1.Gateways
         [Test]
         public void GetEntityByIdReturnsNullIfEntityDoesntExist()
         {
-            var response = _classUnderTest.GetEntityById(123);
+            var response = _classUnderTest.GetEntityByIdAsync(Guid.NewGuid());
 
             response.Should().BeNull();
         }
@@ -38,18 +39,18 @@ namespace BaseApi.Tests.V1.Gateways
         [Test]
         public void GetEntityByIdReturnsTheEntityIfItExists()
         {
-            var entity = _fixture.Create<Entity>();
+            var entity = _fixture.Create<Arrears>();
             var dbEntity = DatabaseEntityHelper.CreateDatabaseEntityFrom(entity);
 
-            _dynamoDb.Setup(x => x.LoadAsync<DatabaseEntity>(entity.Id, default))
+            _dynamoDb.Setup(x => x.LoadAsync<ArrearsDbEntity>(entity.Id, default))
                      .ReturnsAsync(dbEntity);
 
-            var response = _classUnderTest.GetEntityById(entity.Id);
+            var response = _classUnderTest.GetEntityByIdAsync(entity.Id);
 
-            _dynamoDb.Verify(x => x.LoadAsync<DatabaseEntity>(entity.Id, default), Times.Once);
+            _dynamoDb.Verify(x => x.LoadAsync<ArrearsDbEntity>(entity.Id, default), Times.Once);
 
-            entity.Id.Should().Be(response.Id);
-            entity.CreatedAt.Should().BeSameDateAs(response.CreatedAt);
+            entity.Id.Should().Be(response.Result.Id);
+            entity.CreatedAt.Should().BeSameDateAs(response.Result.CreatedAt);
         }
     }
 }

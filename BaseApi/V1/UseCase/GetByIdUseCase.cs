@@ -1,23 +1,26 @@
-using BaseApi.V1.Boundary.Response;
-using BaseApi.V1.Factories;
-using BaseApi.V1.Gateways;
-using BaseApi.V1.UseCase.Interfaces;
+using ArrearsApi.V1.Boundary.Response;
+using ArrearsApi.V1.Factories;
+using ArrearsApi.V1.Gateways;
+using ArrearsApi.V1.UseCase.Interfaces;
+using System;
+using System.Threading.Tasks;
 
-namespace BaseApi.V1.UseCase
+namespace ArrearsApi.V1.UseCase
 {
     //TODO: Rename class name and interface name to reflect the entity they are representing eg. GetClaimantByIdUseCase
     public class GetByIdUseCase : IGetByIdUseCase
     {
-        private IExampleGateway _gateway;
-        public GetByIdUseCase(IExampleGateway gateway)
+        private IArrearsApiGateway _gateway;
+        public GetByIdUseCase(IArrearsApiGateway gateway)
         {
             _gateway = gateway;
         }
 
         //TODO: rename id to the name of the identifier that will be used for this API, the type may also need to change
-        public ResponseObject Execute(int id)
+        public async Task<ArrearsResponseObject> ExecuteAsync(Guid id)
         {
-            return _gateway.GetEntityById(id).ToResponse();
+            var arrear = await _gateway.GetEntityByIdAsync(id).ConfigureAwait(false);
+            return arrear?.ToResponse();
         }
     }
 }

@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
-using BaseApi.V1.Controllers;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Controllers;
+using ArrearsApi.V1.Infrastructure;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using NUnit.Framework;
 
-namespace BaseApi.Tests.V1.Infrastructure
+namespace ArrearsApi.Tests.V1.Infrastructure
 {
     [TestFixture]
     public class CorrelationMiddlewareTest

@@ -1,21 +1,21 @@
 using AutoFixture;
-using BaseApi.V1.Domain;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Domain;
+using ArrearsApi.V1.Infrastructure;
 
-namespace BaseApi.Tests.V1.Helper
+namespace ArrearsApi.Tests.V1.Helper
 {
     public static class DatabaseEntityHelper
     {
-        public static DatabaseEntity CreateDatabaseEntity()
+        public static ArrearsDbEntity CreateDatabaseEntity()
         {
-            var entity = new Fixture().Create<Entity>();
+            var entity = new Fixture().Create<Arrears>();
 
             return CreateDatabaseEntityFrom(entity);
         }
 
-        public static DatabaseEntity CreateDatabaseEntityFrom(Entity entity)
+        public static ArrearsDbEntity CreateDatabaseEntityFrom(Arrears entity)
         {
-            return new DatabaseEntity
+            return new ArrearsDbEntity
             {
                 Id = entity.Id,
                 CreatedAt = entity.CreatedAt,

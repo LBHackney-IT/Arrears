@@ -1,13 +1,13 @@
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Infrastructure;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace BaseApi.Tests.V1.Infrastructure
+namespace ArrearsApi.Tests.V1.Infrastructure
 {
     [TestFixture]
     public class DynamoDbInitilisationExtensionsTests

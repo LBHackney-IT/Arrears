@@ -1,11 +1,11 @@
 using AutoFixture;
-using BaseApi.V1.Domain;
-using BaseApi.V1.Factories;
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Domain;
+using ArrearsApi.V1.Factories;
+using ArrearsApi.V1.Infrastructure;
 using FluentAssertions;
 using NUnit.Framework;
 
-namespace BaseApi.Tests.V1.Factories
+namespace ArrearsApi.Tests.V1.Factories
 {
     [TestFixture]
     public class EntityFactoryTest
@@ -17,7 +17,7 @@ namespace BaseApi.Tests.V1.Factories
         [Test]
         public void CanMapADatabaseEntityToADomainObject()
         {
-            var databaseEntity = _fixture.Create<DatabaseEntity>();
+            var databaseEntity = _fixture.Create<ArrearsDbEntity>();
             var entity = databaseEntity.ToDomain();
 
             databaseEntity.Id.Should().Be(entity.Id);
@@ -29,7 +29,7 @@ namespace BaseApi.Tests.V1.Factories
         [Test]
         public void CanMapADomainEntityToADatabaseObject()
         {
-            var entity = _fixture.Create<Entity>();
+            var entity = _fixture.Create<Arrears>();
             var databaseEntity = entity.ToDatabase();
 
             entity.Id.Should().Be(databaseEntity.Id);

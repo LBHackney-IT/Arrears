@@ -1,22 +1,22 @@
-using BaseApi.V1.Infrastructure;
+using ArrearsApi.V1.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using NUnit.Framework;
 
-namespace BaseApi.Tests
+namespace ArrearsApi.Tests
 {
     [TestFixture]
     public class DatabaseTests
     {
         private IDbContextTransaction _transaction;
-        protected DatabaseContext DatabaseContext { get; private set; }
+        protected ArrearsContext DatabaseContext { get; private set; }
 
         [SetUp]
         public void RunBeforeAnyTests()
         {
             var builder = new DbContextOptionsBuilder();
             builder.UseNpgsql(ConnectionString.TestDatabase());
-            DatabaseContext = new DatabaseContext(builder.Options);
+            DatabaseContext = new ArrearsContext(builder.Options);
 
             DatabaseContext.Database.EnsureCreated();
             _transaction = DatabaseContext.Database.BeginTransaction();

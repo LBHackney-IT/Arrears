@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
@@ -7,6 +7,10 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RootNamespace>ArrearsApi.Tests</RootNamespace>
+    <PackageId>ArrearsApi.Tests</PackageId>
+    <Authors>ArrearsApi.Tests</Authors>
+    <Product>ArrearsApi.Tests</Product>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BaseApi\BaseApi.csproj" />
+    <ProjectReference Include="..\BaseApi\ArrearsApi.csproj" />
   </ItemGroup>
 
 </Project>

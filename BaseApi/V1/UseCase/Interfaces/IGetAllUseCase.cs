@@ -1,9 +1,10 @@
-using BaseApi.V1.Boundary.Response;
+using ArrearsApi.V1.Boundary.Response;
+using System.Threading.Tasks;
 
-namespace BaseApi.V1.UseCase.Interfaces
+namespace ArrearsApi.V1.UseCase.Interfaces
 {
     public interface IGetAllUseCase
     {
-        ResponseObjectList Execute();
+        Task<ArrearsResponseObjectList> ExecuteAsync(string targettype, int count);
     }
 }
