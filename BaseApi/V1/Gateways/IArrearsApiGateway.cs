@@ -11,8 +11,8 @@ namespace ArrearsApi.V1.Gateways
 
         Task<List<Arrears>> GetAllAsync(string assettype, int count);
 
-        void Add(Arrears arrears);
+        bool Add(Arrears arrears);
 
-        Task AddAsync(Arrears arrears);
+        Task<bool> AddAsync(Arrears arrears);
     }
 }

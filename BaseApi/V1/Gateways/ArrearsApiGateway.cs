@@ -38,13 +38,22 @@ namespace ArrearsApi.V1.Gateways
                 throw new ArgumentException("Invalid type");
 
         }
-        public void Add(Arrears arrears)
+        public bool Add(Arrears arrears)
         {
              _arrearsContext.Arrears.Add(arrears.ToDatabase());
+            if (_arrearsContext.SaveChangesAsync().Result > 0)
+            {
+                return true;
+            }
+            return false;
         }
-        public async Task AddAsync(Arrears arrears)
+        public async Task<bool> AddAsync(Arrears arrears)
         {
-            await _arrearsContext.AddAsync(arrears).ConfigureAwait(false);
+             await _arrearsContext.AddAsync(arrears).ConfigureAwait(false);
+            if (_arrearsContext.SaveChangesAsync().Result > 0) {
+                return true;
+            }
+            return false;
         }
     }
 }

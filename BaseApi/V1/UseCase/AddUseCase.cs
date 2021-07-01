@@ -26,9 +26,12 @@ namespace ArrearsApi.V1.UseCase
 
         public async Task<ArrearsResponseObject> ExecuteAsync(Arrears arrears)
         {
-            
-            await _gateway.AddAsync(arrears).ConfigureAwait(false);
-            return arrears.ToResponse();
+            var result = await _gateway.AddAsync(arrears).ConfigureAwait(false);
+            if (result)
+            {
+                return arrears.ToResponse();
+            }
+            return null;
         }
     }
 }

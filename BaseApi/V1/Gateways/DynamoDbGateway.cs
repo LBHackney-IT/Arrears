@@ -21,8 +21,12 @@ namespace ArrearsApi.V1.Gateways
         public async Task<List<Arrears>> GetAllAsync(string targettype, int count)
         {
             var scanConditions = new List<ScanCondition>();
-            if (targettype != null)
-                scanConditions.Add(new ScanCondition("TargetType", Amazon.DynamoDBv2.DocumentModel.ScanOperator.Equal, Enum.Parse(typeof(TargetType), targettype.ToLower())));
+            TargetType targetTypeVal;
+            if (!string.IsNullOrEmpty(targettype) &&  Enum.TryParse(targettype.ToLower(), out targetTypeVal))
+            {
+                scanConditions.Add(new ScanCondition("TargetType", Amazon.DynamoDBv2.DocumentModel.ScanOperator.Equal,
+                    targetTypeVal));
+            }
             
             var data = await _dynamoDbContext.ScanAsync<ArrearsDbEntity>(scanConditions).GetRemainingAsync().ConfigureAwait(false);
             return data.Select(p => p.ToDomain()).OrderByDescending(x => x.CurrentBalance).Take(count).ToList();
@@ -33,14 +37,25 @@ namespace ArrearsApi.V1.Gateways
             var result =await _dynamoDbContext.LoadAsync<ArrearsDbEntity>(id).ConfigureAwait(false);
             return result?.ToDomain();
         }
-        public void Add(Arrears arrears)
+        public bool Add(Arrears arrears)
         {
             _dynamoDbContext.SaveAsync<ArrearsDbEntity>(arrears.ToDatabase());
+            var result = _dynamoDbContext.LoadAsync<ArrearsDbEntity>(arrears.Id);
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
         }
-        public async Task AddAsync(Arrears arrears)
+        public async Task<bool> AddAsync(Arrears arrears)
         {
             await _dynamoDbContext.SaveAsync<ArrearsDbEntity>(arrears.ToDatabase()).ConfigureAwait(false);
             var result = _dynamoDbContext.LoadAsync<ArrearsDbEntity>(arrears.Id);
+            if (result != null)
+            {
+                return true;
+            }
+            return false;
         }
         
     }

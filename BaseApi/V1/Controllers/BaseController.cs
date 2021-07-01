@@ -14,7 +14,14 @@ namespace ArrearsApi.V1.Controllers
         {
             ConfigureJsonSerializer();
         }
-
+        protected ActionResult HandleResult<T>(T result)
+        {
+            if (result == null) return NotFound();
+            if (result!=null)
+                return Ok(result);
+            
+            return BadRequest(result);
+        }
         public string GetCorrelationId()
         {
             StringValues correlationId;
