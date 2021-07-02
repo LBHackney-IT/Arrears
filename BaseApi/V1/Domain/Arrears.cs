@@ -11,6 +11,8 @@ namespace ArrearsApi.V1.Domain
         public decimal TotalCharged { get; set; }
         public decimal TotalPaid { get; set; }
         public decimal CurrentBalance { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
+        public AssetAddress AssetAddress { get; set; }
+        public Person Person { get; set; }
     }
 }

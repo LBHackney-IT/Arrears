@@ -4,6 +4,7 @@ using ArrearsApi.V1.UseCase.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ArrearsApi.V1.Controllers
@@ -55,7 +56,7 @@ namespace ArrearsApi.V1.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         [Route("asset/{targettype}")]
-        public async Task< IActionResult> GetAllAsync(string targettype, int count)
+        public async Task<IActionResult> GetAllAsync(string targettype, int count)
         {
             return HandleResult( await _getAllUseCase.ExecuteAsync(targettype, count).ConfigureAwait(false));
         }
@@ -76,7 +77,6 @@ namespace ArrearsApi.V1.Controllers
         /// </summary>
         /// <param name="arrears"></param>
         /// <returns>201 Created At Route</returns>
-        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
@@ -84,14 +84,14 @@ namespace ArrearsApi.V1.Controllers
         {
             var _arrears = await _getByIdUseCase.ExecuteAsync(arrears.Id).ConfigureAwait(false);
             if (_arrears != null)
-                return Conflict("This record is exists");
+                return BadRequest("This record is exists");
             arrears.Id = Guid.NewGuid();
             var response =  await _addUseCase.ExecuteAsync(arrears).ConfigureAwait(false);
             if (response != null)
             {
                 return CreatedAtRoute("Get", new { id = arrears.Id }, arrears);
             }
-            return BadRequest("Could not save Arrears record");
+            return BadRequest(new AppException((int) HttpStatusCode.BadRequest, "Arrears record save failed!"));
         }
 
     }

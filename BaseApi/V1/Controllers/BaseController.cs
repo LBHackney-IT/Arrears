@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using ArrearsApi.V1.Domain;
 using ArrearsApi.V1.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
@@ -16,7 +18,7 @@ namespace ArrearsApi.V1.Controllers
         }
         protected ActionResult HandleResult<T>(T result)
         {
-            if (result == null) return NotFound();
+            if (result == null) return NotFound(new AppException((int) HttpStatusCode.NotFound, "No Arrear by provided arrearId cannot be found!"));
             if (result!=null)
                 return Ok(result);
             

@@ -40,5 +40,11 @@ namespace ArrearsApi.V1.Infrastructure
 
         [DynamoDBProperty(AttributeName = "created_at")]
         public DateTime CreatedAt { get; set; }
+
+        [DynamoDBProperty(AttributeName = "asset_address", Converter = (typeof(DynamoDbObjectConverter<AssetAddress>)))]
+        public AssetAddress AssetAddress { get; set; }
+
+        [DynamoDBProperty(AttributeName = "person_details", Converter = (typeof(DynamoDbObjectConverter<Person>)))]
+        public Person Person { get; set; }
     }
 }

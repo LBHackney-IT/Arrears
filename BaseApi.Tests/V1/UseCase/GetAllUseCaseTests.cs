@@ -33,8 +33,8 @@ namespace ArrearsApi.Tests.V1.UseCase
             _mockGateway.Setup(x => x.GetAllAsync("tenure", 4)).Returns(Task.FromResult(stubbedEntities));
 
             var expectedResponse = new ArrearsResponseObjectList { ArrearsResponseObjects = stubbedEntities.ToResponse() };
-
-            _classUnderTest.ExecuteAsync("tenure", 4).Should().BeEquivalentTo(expectedResponse);
+            var response = _classUnderTest.ExecuteAsync("tenure", 4);
+            response.Result.Should().BeEquivalentTo(expectedResponse);
         }
 
         //TODO: Add extra tests here for extra functionality added to the use case

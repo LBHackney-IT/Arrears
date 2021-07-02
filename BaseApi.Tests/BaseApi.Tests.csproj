@@ -6,7 +6,7 @@
     <IsTestProject>true</IsTestProject>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RootNamespace>ArrearsApi.Tests</RootNamespace>
     <PackageId>ArrearsApi.Tests</PackageId>
     <Authors>ArrearsApi.Tests</Authors>

@@ -18,7 +18,9 @@ namespace ArrearsApi.V1.Factories
                 TotalPaid = domain.TotalPaid,
                 TotalCharged = domain.TotalCharged,
                 CurrentBalance = domain.CurrentBalance,
-                CreatedAt = domain.CreatedAt
+                CreatedAt = domain.CreatedAt,
+                AssetAddress = domain.AssetAddress,
+                Person = domain.Person
             };
         }
 

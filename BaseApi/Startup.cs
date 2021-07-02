@@ -22,6 +22,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using FluentValidation.AspNetCore;
+using ArrearsApi.V1.Domain;
+using ArrearsApi.V1.Middleware;
 
 namespace ArrearsApi
 {
@@ -37,14 +40,17 @@ namespace ArrearsApi
         public IConfiguration Configuration { get; }
         private static List<ApiVersionDescription> _apiVersions { get; set; }
         //TODO update the below to the name of your API
-        private const string ApiName = "Your API Name";
+        private const string ApiName = "ArrearsApi";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services
                 .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddFluentValidation(config => {
+                    config.RegisterValidatorsFromAssemblyContaining<ArrearsValidator>();
+                });
             services.AddApiVersioning(o =>
             {
                 o.DefaultApiVersion = new ApiVersion(1, 0);
@@ -167,6 +173,7 @@ namespace ArrearsApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseCorrelation();
 
             if (env.IsDevelopment())

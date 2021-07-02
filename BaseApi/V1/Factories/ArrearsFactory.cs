@@ -18,7 +18,9 @@ namespace ArrearsApi.V1.Factories
                 TargetId = databaseEntity.TargetId,
                 TargetType = databaseEntity.TargetType,
                 TotalCharged = databaseEntity.TotalCharged,
-                TotalPaid = databaseEntity.TotalPaid
+                TotalPaid = databaseEntity.TotalPaid,
+                AssetAddress = databaseEntity.AssetAddress,
+                Person = databaseEntity.Person
             };
         }
 
@@ -34,7 +36,9 @@ namespace ArrearsApi.V1.Factories
                 TargetId = entity.TargetId,
                 TargetType= entity.TargetType,
                 TotalCharged = entity.TotalCharged,
-                TotalPaid = entity.TotalPaid
+                TotalPaid = entity.TotalPaid,
+                AssetAddress = entity.AssetAddress,
+                Person = entity.Person
             };
         }
     }
