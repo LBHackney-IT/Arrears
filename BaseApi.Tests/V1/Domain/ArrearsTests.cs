@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace ArrearsApi.Tests.V1.Domain
 {
     [TestFixture]
-    public class EntityTests
+    public class ArrearsTests
     {
         [Test]
         public void EntitiesHaveAnId()

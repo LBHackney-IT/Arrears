@@ -161,6 +161,7 @@ namespace ArrearsApi
 
             //TODO: For DynamoDb, remove the line above and uncomment the line below.
             services.AddScoped<IArrearsApiGateway, DynamoDbGateway>();
+            services.AddSingleton<DynamoDbContextWrapper>();
         }
 
         private static void RegisterUseCases(IServiceCollection services)

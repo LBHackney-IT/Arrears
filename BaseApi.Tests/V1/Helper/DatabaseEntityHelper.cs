@@ -19,6 +19,13 @@ namespace ArrearsApi.Tests.V1.Helper
             {
                 Id = entity.Id,
                 CreatedAt = entity.CreatedAt,
+                TargetId=entity.TargetId,
+                TargetType=entity.TargetType,
+                TotalCharged=entity.TotalCharged,
+                TotalPaid=entity.TotalPaid,
+                CurrentBalance=entity.CurrentBalance,
+                AssetAddress=entity.AssetAddress,
+                Person=entity.Person
             };
         }
     }
