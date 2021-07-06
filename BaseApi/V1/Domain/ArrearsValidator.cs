@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.Validators;
 using System;
 
 namespace ArrearsApi.V1.Domain
@@ -16,12 +17,21 @@ namespace ArrearsApi.V1.Domain
                     .Must(date => date != default(DateTime))
                     .WithMessage("CreatedAt date is required");
             RuleFor(x => x.AssetAddress).SetValidator(new AssetAddressValidator());
-            RuleFor(x => x.Person).SetValidator(new PersonValidator());
+            
+            RuleFor(x => x.Person).NotNull().When(x => x.TargetType == TargetType.tenure).SetValidator(new PersonValidator());
 
         }
         private bool ValidateGuid(Guid bar)
         {
             return Guid.TryParse(bar.ToString(), out var result);
+        }
+        private bool ValidateTargetType(TargetType targetType)
+        {
+            if (targetType == TargetType.tenure)
+            {
+                return true;
+            }
+            return false;
         }
     }
     
