@@ -39,7 +39,7 @@ namespace ArrearsApi
 
         public IConfiguration Configuration { get; }
         private static List<ApiVersionDescription> _apiVersions { get; set; }
-        //TODO update the below to the name of your API
+        
         private const string ApiName = "ArrearsApi";
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -188,7 +188,7 @@ namespace ArrearsApi
 
             // TODO
             // If you DON'T use the renaming script, PLEASE replace with your own API name manually
-            app.UseXRay("base-api");
+            app.UseXRay("ArrearsApi");
 
 
             //Get All ApiVersions,

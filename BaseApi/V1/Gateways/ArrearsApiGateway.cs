@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ArrearsApi.V1.Gateways
 {
-    //TODO: Rename to match the data source that is being accessed in the gateway eg. MosaicGateway
     public class ArrearsApiGateway : IArrearsApiGateway
     {
         private readonly ArrearsContext _arrearsContext;

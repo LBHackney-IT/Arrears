@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace ArrearsApi.V1.UseCase
 {
-    //TODO: Rename class name and interface name to reflect the entity they are representing eg. GetAllClaimantsUseCase
     public class GetAllUseCase : IGetAllUseCase
     {
         private readonly IArrearsApiGateway _gateway;

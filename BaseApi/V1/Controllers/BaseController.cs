@@ -19,7 +19,7 @@ namespace ArrearsApi.V1.Controllers
         protected ActionResult HandleResult<T>(T result)
         {
             if (result == null) return NotFound(new AppException((int) HttpStatusCode.NotFound, "No Arrear by provided arrearId cannot be found!"));
-            if (result!=null)
+            if (result != null)
                 return Ok(result);
             
             return BadRequest(result);

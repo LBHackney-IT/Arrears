@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 namespace ArrearsApi.V1.Controllers
 {
     [ApiController]
-    //TODO: Rename to match the APIs endpoint
     [Route("api/v1/arrears")]
     [Produces("application/json")]
     [ApiVersion("1.0")]
-    //TODO: rename class to match the API name
     public class ArrearsApiController : BaseController
     {
         private readonly IGetAllUseCase _getAllUseCase;
@@ -28,28 +26,37 @@ namespace ArrearsApi.V1.Controllers
         }
 
         /// <summary>
-        /// ...
+        /// Get Arrears based on Arrears Id
         /// </summary>
-        /// <response code="200">...</response>
-        /// <response code="404">No ? found for the specified ID</response>
+        /// <param name="id">Arrears Id</param>
+        /// <returns>
+        ///  <response code="200">ok result</response>
+        ///  <response code="404">No arrears found for the specified ID</response>
+        ///  <response code="400">Bad request result</response>
+        ///  <response code="500">Internal Server Error</response>
+        /// </returns>
         [ProducesResponseType(typeof(ArrearsResponseObject), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
-        //TODO: rename to match the identifier that will be used
         [Route("{id}",Name ="Get")]
         public async Task<IActionResult> Get(Guid id)
         {
             return HandleResult( await _getByIdUseCase.ExecuteAsync(id).ConfigureAwait(false));
         }
 
-        //TODO: add xml comments containing information that will be included in the auto generated swagger docs (https://github.com/LBHackney-IT/lbh-base-api/wiki/Controllers-and-Response-Objects)
         /// <summary>
-        /// ...
+        /// Get number of High Arrears based on count and based on current balance descending
         /// </summary>
-        /// <response code="200">...</response>
-        /// <response code="400">Invalid Query Parameter.</response>
+        /// <param name="targettype">target type as tenure/estate/block</param>
+        /// <param name="count">number of result count</param>
+        /// <returns>
+        ///  <response code="200">ok result</response>
+        ///  <response code="404">No arrears found for the specified ID</response>
+        ///  <response code="400">Bad request result</response>
+        ///  <response code="500">Internal Server Error</response>
+        /// </returns>
         [ProducesResponseType(typeof(ArrearsResponseObjectList), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -61,6 +68,16 @@ namespace ArrearsApi.V1.Controllers
             return HandleResult( await _getAllUseCase.ExecuteAsync(targettype, count).ConfigureAwait(false));
         }
 
+        /// <summary>
+        /// Get number of Arrear record based on count and based on current balance descending
+        /// </summary>
+        /// <param name="count">number of result count</param>
+        /// <returns>
+        ///  <response code="200">ok result</response>
+        ///  <response code="404">No arrears found for the specified ID</response>
+        ///  <response code="400">Bad request result</response>
+        ///  <response code="500">Internal Server Error</response>
+        /// </returns>
         [ProducesResponseType(typeof(ArrearsResponseObjectList), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -75,9 +92,14 @@ namespace ArrearsApi.V1.Controllers
         /// <summary>
         /// Create a new Arrears record
         /// </summary>
-        /// <param name="arrears"></param>
-        /// <returns>201 Created At Route</returns>
+        /// <param name="arrears">Arrears request object</param>
+        /// <returns>
+        ///  <response code="201">Created at route result</response>
+        ///  <response code="400">Bad request result</response>
+        ///  <response code="500">Internal Server Error</response>
+        /// </returns>
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [HttpPost]
         public async Task<IActionResult> Post(Arrears arrears)

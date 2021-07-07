@@ -9,12 +9,11 @@ namespace ArrearsApi.V1.Infrastructure
     {
         public static void ConfigureDynamoDB(this IServiceCollection services)
         {
-            bool localMode = true;
-            //_ = bool.TryParse(Environment.GetEnvironmentVariable("DynamoDb_LocalMode"), out localMode);
+            bool localMode  = bool.TryParse(Environment.GetEnvironmentVariable("DynamoDb_LocalMode"), out localMode);
 
             if (localMode)
             {
-                var url = "http://localhost:8000"; //Environment.GetEnvironmentVariable("DynamoDb_LocalServiceUrl");
+                var url =  Environment.GetEnvironmentVariable("DynamoDb_LocalServiceUrl");
                 services.AddSingleton<IAmazonDynamoDB>(sp =>
                 {
                     var clientConfig = new AmazonDynamoDBConfig { ServiceURL = url };

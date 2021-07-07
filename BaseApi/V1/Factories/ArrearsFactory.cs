@@ -7,9 +7,6 @@ namespace ArrearsApi.V1.Factories
     {
         public static Arrears ToDomain(this ArrearsDbEntity databaseEntity)
         {
-            //TODO: Map the rest of the fields in the domain object.
-            // More information on this can be found here https://github.com/LBHackney-IT/lbh-base-api/wiki/Factory-object-mappings
-
             return new Arrears
             {
                 Id =  databaseEntity.Id,
@@ -26,8 +23,6 @@ namespace ArrearsApi.V1.Factories
 
         public static ArrearsDbEntity ToDatabase(this Arrears entity)
         {
-            //TODO: Map the rest of the fields in the database object.
-
             return new ArrearsDbEntity
             {
                 Id = entity.Id,
